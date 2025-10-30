@@ -21,7 +21,7 @@ export async function onRequestPost(context) {
         const telegramFormData = new FormData();
         telegramFormData.append("chat_id", env.TG_Chat_ID);
 
-        // 根据文件类型选择合适的上传方式
+        // 根據檔案型別選擇合適的上傳方式
         let apiEndpoint;
         if (uploadFile.type.startsWith('image/')) {
             telegramFormData.append("photo", uploadFile);
@@ -49,7 +49,7 @@ export async function onRequestPost(context) {
             throw new Error('Failed to get file ID');
         }
 
-        // 将文件信息保存到 KV 存储
+        // 將檔案資訊儲存到 KV 儲存
         if (env.img_url) {
             await env.img_url.put(`${fileId}.${fileExtension}`, "", {
                 metadata: {
@@ -110,7 +110,7 @@ async function sendToTelegram(formData, apiEndpoint, env, retryCount = 0) {
             return { success: true, data: responseData };
         }
 
-        // 图片上传失败时转为文档方式重试
+        // 圖片上傳失敗時轉為文件方式重試
         if (retryCount < MAX_RETRIES && apiEndpoint === 'sendPhoto') {
             console.log('Retrying image as document...');
             const newFormData = new FormData();

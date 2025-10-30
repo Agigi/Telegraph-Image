@@ -143,7 +143,7 @@ body {
   flex-grow: 1;
 }
 
-/* 图片卡片样式 */
+/* 圖片卡片樣式 */
 .image-card {
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -168,8 +168,8 @@ body {
   right: 10px;
   transform: scale(1.5);
   z-index: 10;
-  margin: 0; /* 重要：移除默认边距 */
-  padding: 0; /* 重要：移除默认内边距 */
+  margin: 0; /* 重要：移除預設邊距 */
+  padding: 0; /* 重要：移除預設內邊距 */
 }
 
 .el-image {
@@ -257,27 +257,27 @@ body {
   gap: 15px;
   margin-top: 20px;
   font-size: 0.9em;
-  color: #555; /* 字体颜色改为黑色 */
+  color: #555; /* 字型顏色改為黑色 */
 }
 
 .footer a {
-  color: #555; /* 链接颜色 */
+  color: #555; /* 連結顏色 */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer a:hover {
-  color: #333; /* 悬停时的链接颜色改为黑色 */
+  color: #333; /* 懸停時的連結顏色改為黑色 */
 }
 
 .footer i {
-  color: #333; /* 图标颜色改为黑色 */
+  color: #333; /* 圖示顏色改為黑色 */
 }
 
-/* 适配移动端 */
+/* 適配移動端 */
 @media (max-width: 768px) {
   .content {
-    grid-template-columns: 1fr; /* 单列布局 */
+    grid-template-columns: 1fr; /* 單列布局 */
     gap: 10px;
   }
   .stats-text{display: none;}
@@ -290,7 +290,7 @@ body {
   .header-content .actions i{margin: 0 4px;}
 }
 
-/* 音视频卡片基础样式 */
+/* 音影片卡片基礎樣式 */
 .video-card, .audio-card, .file-card {
   background: linear-gradient(135deg, #8a4bffd9 0%, #6d82ffd9 100%);
   border: none;
@@ -388,7 +388,7 @@ body {
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* 自定义audio元素样式 */
+/* 自定義audio元素樣式 */
 .custom-audio-player {
   width: 100%;
   height: 42px;
@@ -425,14 +425,14 @@ body {
   justify-content: center;
   transition: all 0.3s ease;
   flex-shrink: 0;
-  z-index: 1; /* 确保按钮可点击 */
+  z-index: 1; /* 確保按鈕可點選 */
 }
 
 .control-btn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* 移动端适配 */
+/* 移動端適配 */
 @media (max-width: 768px) {
   .audio-card { max-height: none; }
   .custom-audio-player { height: 32px; }

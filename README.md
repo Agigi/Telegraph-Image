@@ -1,210 +1,210 @@
 # Telegraph-Image
 
-免费图片托管解决方案，Flickr/imgur 替代品。使用 Cloudflare Pages 和 Telegraph。
+免費圖片託管解決方案，Flickr/imgur 替代品。使用 Cloudflare Pages 和 Telegraph。
 
 [English](README-EN.md)|中文
 
 > [!IMPORTANT]
 >
-> 由于原有的Telegraph API接口被官方关闭，需要将上传渠道切换至Telegram Channel，请按照文档中的部署要求设置`TG_Bot_Token`和`TG_Chat_ID`，否则将无法正常使用上传功能。
+> 由於原有的Telegraph API介面被官方關閉，需要將上傳渠道切換至Telegram Channel，請按照文件中的部署要求設定`TG_Bot_Token`和`TG_Chat_ID`，否則將無法正常使用上傳功能。
 
-## 如何获取Telegram的`Bot_Token`和`Chat_ID`
+## 如何獲取Telegram的`Bot_Token`和`Chat_ID`
 
-如果您还没有Telegram账户，请先创建一个。接着，按照以下步骤操作以获取`BOT_TOKEN`和`CHAT_ID`：
+如果您還沒有Telegram賬戶，請先建立一個。接著，按照以下步驟操作以獲取`BOT_TOKEN`和`CHAT_ID`：
 
-1. **获取`Bot_Token`**
-   - 在Telegram中，向[@BotFather](https://t.me/BotFather)发送命令`/newbot`，根据提示依次输入您的机器人名称和用户名。成功创建机器人后，您将会收到一个`BOT_TOKEN`，用于与Telegram API进行交互。
+1. **獲取`Bot_Token`**
+   - 在Telegram中，向[@BotFather](https://t.me/BotFather)傳送命令`/newbot`，根據提示依次輸入您的機器人名稱和使用者名稱。成功建立機器人後，您將會收到一個`BOT_TOKEN`，用於與Telegram API進行互動。
    
 ![202409071744569](https://github.com/user-attachments/assets/04f01289-205c-43e0-ba03-d9ab3465e349)
 
-2. **设置机器人为频道管理员**
-   - 创建一个新的频道（Channel），进入该频道后，选择频道设置。将刚刚创建的机器人添加为频道管理员，这样机器人才能发送消息。
+2. **設定機器人為頻道管理員**
+   - 建立一個新的頻道（Channel），進入該頻道後，選擇頻道設定。將剛剛建立的機器人新增為頻道管理員，這樣機器人才能傳送訊息。
 
 ![202409071758534](https://github.com/user-attachments/assets/cedea4c7-8b31-42e0-98a1-8a72ff69528f)
    
 ![202409071758796](https://github.com/user-attachments/assets/16393802-17eb-4ae4-a758-f0fdb7aaebc4)
 
 
-3. **获取`Chat_ID`**
-   - 通过[@VersaToolsBot](https://t.me/VersaToolsBot)获取您的频道ID。向该机器人发送消息，按照指示操作，最后您将得到`CHAT_ID`（即频道的ID）。
-   - 或者通过[@GetTheirIDBot](https://t.me/GetTheirIDBot)获取您的频道ID。向该机器人发送消息，按照指示操作，最后您将得到`CHAT_ID`（即频道的ID）。
+3. **獲取`Chat_ID`**
+   - 透過[@VersaToolsBot](https://t.me/VersaToolsBot)獲取您的頻道ID。向該機器人傳送訊息，按照指示操作，最後您將得到`CHAT_ID`（即頻道的ID）。
+   - 或者透過[@GetTheirIDBot](https://t.me/GetTheirIDBot)獲取您的頻道ID。向該機器人傳送訊息，按照指示操作，最後您將得到`CHAT_ID`（即頻道的ID）。
 
    ![202409071751619](https://github.com/user-attachments/assets/59fe8b20-c969-4d13-8d46-e58c0e8b9e79)
 
-最后去Cloudflare Pages后台设置相关的环境变量（注：修改环境变量后，需要重新部署才能生效）
-| 环境变量        | 示例值                    | 说明                                                                                   |
+最後去Cloudflare Pages後臺設定相關的環境變數（注：修改環境變數後，需要重新部署才能生效）
+| 環境變數        | 示例值                    | 說明                                                                                   |
 |-----------------|---------------------------|----------------------------------------------------------------------------------------|
-| `TG_Bot_Token`   | `123468:AAxxxGKrn5`        | 从[@BotFather](https://t.me/BotFather)获取的Telegram Bot Token。                        |
-| `TG_Chat_ID`     | `-1234567`                 | 频道的ID，确保TG Bot是该频道或群组的管理员。 |
+| `TG_Bot_Token`   | `123468:AAxxxGKrn5`        | 從[@BotFather](https://t.me/BotFather)獲取的Telegram Bot Token。                        |
+| `TG_Chat_ID`     | `-1234567`                 | 頻道的ID，確保TG Bot是該頻道或群組的管理員。 |
 
 ## 如何部署
 
-### 提前准备
+### 提前準備
 
-你唯一需要提前准备的就是一个 Cloudflare 账户 （如果需要在自己的服务器上部署，不依赖 Cloudflare，可参考[#46](https://github.com/cf-pages/Telegraph-Image/issues/46) ）
+你唯一需要提前準備的就是一個 Cloudflare 賬戶 （如果需要在自己的伺服器上部署，不依賴 Cloudflare，可參考[#46](https://github.com/cf-pages/Telegraph-Image/issues/46) ）
 
 ### 手把手教程
 
-简单 3 步，即可部署本项目，拥有自己的图床
+簡單 3 步，即可部署本專案，擁有自己的圖床
 
-1.Fork 本仓库 (注意：必须使用 Git 或者 Wrangler 命令行工具部署后才能正常使用，[文档](https://developers.cloudflare.com/pages/functions/get-started/#deploy-your-function))
+1.Fork 本倉庫 (注意：必須使用 Git 或者 Wrangler 命令列工具部署後才能正常使用，[文件](https://developers.cloudflare.com/pages/functions/get-started/#deploy-your-function))
 
-2.打开 Cloudflare Dashboard，进入 Pages 管理页面，选择创建项目，选择`连接到 Git 提供程序`
+2.開啟 Cloudflare Dashboard，進入 Pages 管理頁面，選擇建立專案，選擇`連線到 Git 提供程式`
 
 ![1](https://telegraph-image.pages.dev/file/8d4ef9b7761a25821d9c2.png)
 
-3. 按照页面提示输入项目名称，选择需要连接的 git 仓库，点击`部署站点`即可完成部署
+3. 按照頁面提示輸入專案名稱，選擇需要連線的 git 倉庫，點選`部署站點`即可完成部署
 
 ## 特性
 
-1.无限图片储存数量，你可以上传不限数量的图片
+1.無限圖片儲存數量，你可以上傳不限數量的圖片
 
-2.无需购买服务器，托管于 Cloudflare 的网络上，当使用量不超过 Cloudflare 的免费额度时，完全免费
+2.無需購買伺服器，託管於 Cloudflare 的網路上，當使用量不超過 Cloudflare 的免費額度時，完全免費
 
-3.无需购买域名，可以使用 Cloudflare Pages 提供的`*.pages.dev`的免费二级域名，同时也支持绑定自定义域名
+3.無需購買域名，可以使用 Cloudflare Pages 提供的`*.pages.dev`的免費二級域名，同時也支援繫結自定義域名
 
-4.支持图片审查 API，可根据需要开启，开启后不良图片将自动屏蔽，不再加载
+4.支援圖片審查 API，可根據需要開啟，開啟後不良圖片將自動遮蔽，不再載入
 
-5.支持后台图片管理，可以对上传的图片进行在线预览，添加白名单，黑名单等操作
+5.支援後臺圖片管理，可以對上傳的圖片進行線上預覽，新增白名單，黑名單等操作
 
-### 绑定自定义域名
+### 繫結自定義域名
 
-在 pages 的自定义域里面，绑定 cloudflare 中存在的域名，在 cloudflare 托管的域名，自动会修改 dns 记录
+在 pages 的自定義域裡面，繫結 cloudflare 中存在的域名，在 cloudflare 託管的域名，自動會修改 dns 記錄
 ![2](https://telegraph-image.pages.dev/file/29546e3a7465a01281ee2.png)
 
-### 开启图片审查
+### 開啟圖片審查
 
-1.请前往https://moderatecontent.com/ 注册并获得一个免费的用于审查图像内容的 API key
+1.請前往https://moderatecontent.com/ 註冊並獲得一個免費的用於審查影象內容的 API key
 
-2.打开 Cloudflare Pages 的管理页面，依次点击`设置`，`环境变量`，`添加环境变量`
+2.開啟 Cloudflare Pages 的管理頁面，依次點選`設定`，`環境變數`，`新增環境變數`
 
-3.添加一个`变量名称`为`ModerateContentApiKey`，`值`为你刚刚第一步获得的`API key`，点击`保存`即可
+3.新增一個`變數名稱`為`ModerateContentApiKey`，`值`為你剛剛第一步獲得的`API key`，點選`儲存`即可
 
-注意：由于所做的更改将在下次部署时生效，你或许还需要进入`部署`页面，重新部署一下该本项目
+注意：由於所做的更改將在下次部署時生效，你或許還需要進入`部署`頁面，重新部署一下該本專案
 
-开启图片审查后，因为审查需要时间，首次的图片加载将会变得缓慢，之后的图片加载由于存在缓存，并不会受到影响
+開啟圖片審查後，因為審查需要時間，首次的圖片載入將會變得緩慢，之後的圖片載入由於存在快取，並不會受到影響
 ![3](https://telegraph-image.pages.dev/file/bae511fb116b034ef9c14.png)
 
 ### 限制
 
-1.由于图片文件实际存储于 Telegraph，Telegraph 限制上传的图片大小最大为 5MB
+1.由於圖片檔案實際儲存於 Telegraph，Telegraph 限制上傳的圖片大小最大為 5MB
 
-2.由于使用 Cloudflare 的网络，图片的加载速度在某些地区可能得不到保证
+2.由於使用 Cloudflare 的網路，圖片的載入速度在某些地區可能得不到保證
 
-3.Cloudflare Function 免费版每日限制 100,000 个请求（即上传或是加载图片的总次数不能超过 100,000 次）如超过可能需要选择购买 Cloudflare Function 的付费套餐，如开启图片管理功能还会存在 KV 操作数量的限制，如超过需购买付费套餐
+3.Cloudflare Function 免費版每日限制 100,000 個請求（即上傳或是載入圖片的總次數不能超過 100,000 次）如超過可能需要選擇購買 Cloudflare Function 的付費套餐，如開啟圖片管理功能還會存在 KV 運算元量的限制，如超過需購買付費套餐
 
-### 感谢
+### 感謝
 
-Hostloc @feixiang 和@乌拉擦 提供的思路和代码
+Hostloc @feixiang 和@烏拉擦 提供的思路和程式碼
 
-## 更新日志
-2024 年 7 月 6 日--后台管理页面更新
+## 更新日誌
+2024 年 7 月 6 日--後臺管理頁面更新
 
-- 支持两个新的管理页面视图（网格视图和瀑布流）
+- 支援兩個新的管理頁面檢視（網格檢視和瀑布流）
 
-    1、网格视图，感谢@DJChanahCJD 提交的代码
-        支持批量删除/复制链接
-        支持按时间倒序排序
-        支持分页功能
+    1、網格檢視，感謝@DJChanahCJD 提交的程式碼
+        支援批次刪除/複製連結
+        支援按時間倒序排序
+        支援分頁功能
         ![](https://camo.githubusercontent.com/a0551aa92f39517f0b30d86883882c1af4c9b3486e540c7750af4dbe707371fa/68747470733a2f2f696d6774632d3369312e70616765732e6465762f66696c652f6262616438336561616630356635333731363237322e706e67)
-    2、瀑布流视图，感谢@panther125 提交的代码
+    2、瀑布流檢視，感謝@panther125 提交的程式碼
         ![](https://camo.githubusercontent.com/63d64491afc5654186248141bd343c363808bf8a77d3b879ffc1b8e57e5ac85d/68747470733a2f2f696d6167652e67696e636f64652e6963752f66696c652f3930346435373737613363306530613936623963642e706e67)
 
-- 添加自动更新支持
+- 新增自動更新支援
 
-    现在fork的项目能够自动和上游仓库同步最新的更改，自动实装最新的项目功能，感谢 @bian2022
+    現在fork的專案能夠自動和上游倉庫同步最新的更改，自動實裝最新的專案功能，感謝 @bian2022
 
-    打开自动更新步骤：
-        当你 fork 项目之后，由于 Github 的限制，需要手动去你 fork 后的项目的 Actions 页面启用 Workflows，并启用 Upstream Sync Action，启用之后即可开启每小时定时自动更新：
+    開啟自動更新步驟：
+        當你 fork 專案之後，由於 Github 的限制，需要手動去你 fork 後的專案的 Actions 頁面啟用 Workflows，並啟用 Upstream Sync Action，啟用之後即可開啟每小時定時自動更新：
         ![](https://im.gurl.eu.org/file/f27ff07538de656844923.png)
         ![](https://im.gurl.eu.org/file/063b360119211c9b984c0.png)
-    `如果你遇到了 Upstream Sync 执行错误，请手动 Sync Fork 一次！`
+    `如果你遇到了 Upstream Sync 執行錯誤，請手動 Sync Fork 一次！`
 
-    手动更新代码
+    手動更新程式碼
 
-    如果你想让手动立即更新，可以查看 [Github 的文档](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) 了解如何让 fork 的项目与上游代码同步。
+    如果你想讓手動立即更新，可以檢視 [Github 的文件](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) 瞭解如何讓 fork 的專案與上游程式碼同步。
 
-    你可以 star/watch 本项目或者 follow 作者来及时获得新功能更新通知。
-- 添加远端遥测
+    你可以 star/watch 本專案或者 follow 作者來及時獲得新功能更新通知。
+- 新增遠端遙測
 
-    可通过添加`disable_telemetry`环境变量退出遥测
+    可透過新增`disable_telemetry`環境變數退出遙測
 
-2023 年 1 月 18 日--图片管理功能更新
+2023 年 1 月 18 日--圖片管理功能更新
 
-1、支持图片管理功能，默认是关闭的，如需开启请部署完成后前往后台依次点击`设置`->`函数`->`KV 命名空间绑定`->`编辑绑定`->`变量名称`填写：`img_url` `KV 命名空间` 选择你提前创建好的 KV 储存空间，开启后访问 http(s)://你的域名/admin 即可打开后台管理页面
-| 变量名称 | KV 命名空间 |
+1、支援圖片管理功能，預設是關閉的，如需開啟請部署完成後前往後臺依次點選`設定`->`函式`->`KV 名稱空間繫結`->`編輯繫結`->`變數名稱`填寫：`img_url` `KV 名稱空間` 選擇你提前建立好的 KV 儲存空間，開啟後訪問 http(s)://你的域名/admin 即可開啟後臺管理頁面
+| 變數名稱 | KV 名稱空間 |
 | ----------- | ----------- |
-| img_url | 选择提前创建好的 KV 储存空间 |
+| img_url | 選擇提前建立好的 KV 儲存空間 |
 
 ![](https://im.gurl.eu.org/file/a0c212d5dfb61f3652d07.png)
 ![](https://im.gurl.eu.org/file/48b9316ed018b2cb67cf4.png)
 
-2、后台管理页面新增登录验证功能，默认也是关闭的，如需开启请部署完成后前往后台依次点击`设置`->`环境变量`->`为生产环境定义变量`->`编辑变量` 添加如下表格所示的变量即可开启登录验证
-| 变量名称 | 值 |
+2、後臺管理頁面新增登入驗證功能，預設也是關閉的，如需開啟請部署完成後前往後臺依次點選`設定`->`環境變數`->`為生產環境定義變數`->`編輯變數` 新增如下表格所示的變數即可開啟登入驗證
+| 變數名稱 | 值 |
 | ----------- | ----------- |
-|BASIC_USER = | <后台管理页面登录用户名称>|
-|BASIC_PASS = | <后台管理页面登录用户密码>|
+|BASIC_USER = | <後臺管理頁面登入使用者名稱稱>|
+|BASIC_PASS = | <後臺管理頁面登入使用者密碼>|
 
 ![](https://im.gurl.eu.org/file/dff376498ac87cdb78071.png)
 
-当然你也可以不设置这两个值，这样访问后台管理页面时将无需验证，直接跳过登录步骤，这一设计使得你可以结合 Cloudflare Access 进行使用，实现支持邮件验证码登录，Microsoft 账户登录，Github 账户登录等功能，能够与你域名上原有的登录方式所集成，无需再次记忆多一组后台的账号密码，添加 Cloudflare Access 的方式请参考官方文档，注意需要保护路径包括/admin 以及 /api/manage/\*
+當然你也可以不設定這兩個值，這樣訪問後臺管理頁面時將無需驗證，直接跳過登入步驟，這一設計使得你可以結合 Cloudflare Access 進行使用，實現支援郵件驗證碼登入，Microsoft 賬戶登入，Github 賬戶登入等功能，能夠與你域名上原有的登入方式所整合，無需再次記憶多一組後臺的賬號密碼，新增 Cloudflare Access 的方式請參考官方文件，注意需要保護路徑包括/admin 以及 /api/manage/\*
 
-3、新增图片总数量统计
-当开启图片管理功能后，可在后台顶部查看记录中的图片数量
+3、新增圖片總數量統計
+當開啟圖片管理功能後，可在後臺頂部檢視記錄中的圖片數量
 
 ![](https://im.gurl.eu.org/file/b7a37c08dc2c504199824.png)
 
-4、新增图片文件名搜索
-当开启图片管理功能后，可在后台搜索框使用图片文件名称，快速搜索定位需要管理的图片
+4、新增圖片檔名搜尋
+當開啟圖片管理功能後，可在後臺搜尋框使用圖片檔名稱，快速搜尋定位需要管理的圖片
 
 ![](https://im.gurl.eu.org/file/faf6d59a7d4a48a555491.png)
 
-5、新增图片状态显示
-当开启图片管理功能后，可在后台查看图片当前的状态{ "ListType": "None", "TimeStamp": 1673984678274 }
-ListType 代表图片当前是否在黑白名单当中，None 则表示既不在黑名单中也不在白名单中，White 表示在在白名单中，Block 表示在黑名单中，TimeStamp 为图片首次加载的时间戳，如开启的图片审查 API，则这里还会显示图片审查的结果用 Label 标识
+5、新增圖片狀態顯示
+當開啟圖片管理功能後，可在後臺檢視圖片當前的狀態{ "ListType": "None", "TimeStamp": 1673984678274 }
+ListType 代表圖片當前是否在黑白名單當中，None 則表示既不在黑名單中也不在白名單中，White 表示在在白名單中，Block 表示在黑名單中，TimeStamp 為圖片首次載入的時間戳，如開啟的圖片審查 API，則這裡還會顯示圖片審查的結果用 Label 標識
 
 ![](https://im.gurl.eu.org/file/6aab78b83bbd8c249ee29.png)
 
-6、新增黑名单功能
-当开启图片管理功能后，可在后台手动为图片加入黑名单，加入黑名单的图片将无法正常加载
+6、新增黑名單功能
+當開啟圖片管理功能後，可在後臺手動為圖片加入黑名單，加入黑名單的圖片將無法正常載入
 
 ![](https://im.gurl.eu.org/file/fb18ef006a23677a52dfe.png)
 
-7、新增白名单功能
-当开启图片管理功能后，可在后台手动为图片加入白名单，加入白名单的图片无论如何都会正常加载，可绕过图片审查 API 的结果
+7、新增白名單功能
+當開啟圖片管理功能後，可在後臺手動為圖片加入白名單，加入白名單的圖片無論如何都會正常載入，可繞過圖片審查 API 的結果
 
 ![](https://im.gurl.eu.org/file/2193409107d4f2bcd00ee.png)
 
-8、新增记录删除功能
-当开启图片管理功能后，可在后台手动删除图片记录，即不再后台显示该图片，除非有人再次上传并加载该图片，注意由于图片储存在 telegraph 的服务器上，我们无法删除上传的原始图片，只能通过上述第 6 点的黑名单功能屏蔽图片的加载
+8、新增記錄刪除功能
+當開啟圖片管理功能後，可在後臺手動刪除圖片記錄，即不再後臺顯示該圖片，除非有人再次上傳並載入該圖片，注意由於圖片儲存在 telegraph 的伺服器上，我們無法刪除上傳的原始圖片，只能透過上述第 6 點的黑名單功能遮蔽圖片的載入
 
-9、新增程序运行模式：白名单模式
-当开启图片管理功能后，除了默认模式外，这次更新还新增了一项新的运行模式，在该模式下，只有被添加进白名单的图片才会被加载，上传的图片需要审核通过后才能展示，最大程度的防止不良图片的加载，如需开启请设置环境变量：WhiteList_Mode=="true"
+9、新增程式執行模式：白名單模式
+當開啟圖片管理功能後，除了預設模式外，這次更新還新增了一項新的執行模式，在該模式下，只有被新增進白名單的圖片才會被載入，上傳的圖片需要稽核通過後才能展示，最大程度的防止不良圖片的載入，如需開啟請設定環境變數：WhiteList_Mode=="true"
 
-10、新增后台图片预览功能
-当开启图片管理功能后，可在后台预览通过你的域名加载过的图片，点击图片可以进行放大，缩小，旋转等操作
+10、新增後臺圖片預覽功能
+當開啟圖片管理功能後，可在後臺預覽透過你的域名載入過的圖片，點選圖片可以進行放大，縮小，旋轉等操作
 
 ![](https://im.gurl.eu.org/file/740cd5a69672de36133a2.png)
 
-## 已经部署了的，如何更新？
+## 已經部署了的，如何更新？
 
-其实更新非常简单，只需要参照上面的更新内容，先进入到 Cloudflare Pages 后台，把需要使用的环境变量提前设置好并绑定上 KV 命名空间，然后去到 Github 你之前 fork 过的仓库依次选择`Sync fork`->`Update branch`即可，稍等一会，Cloudflare Pages 那边检测到你的仓库更新了之后就会自动部署最新的代码了
+其實更新非常簡單，只需要參照上面的更新內容，先進入到 Cloudflare Pages 後臺，把需要使用的環境變數提前設定好並繫結上 KV 名稱空間，然後去到 Github 你之前 fork 過的倉庫依次選擇`Sync fork`->`Update branch`即可，稍等一會，Cloudflare Pages 那邊檢測到你的倉庫更新了之後就會自動部署最新的程式碼了
 
 ## 一些限制：
 
-Cloudflare KV 每天只有 1000 次的免费写入额度，每有一张新的图片加载都会占用该写入额度，如果超过该额度，图片管理后台将无法记录新加载的图片
+Cloudflare KV 每天只有 1000 次的免費寫入額度，每有一張新的圖片載入都會佔用該寫入額度，如果超過該額度，圖片管理後臺將無法記錄新載入的圖片
 
-每天最多 100,000 次免费读取操作，图片每加载一次都会占用该额度（在没有缓存的情况下，如果你的域名在 Cloudflare 开启了缓存，当缓存未命中时才会占用该额度），超过黑白名单等功能可能会失效
+每天最多 100,000 次免費讀取操作，圖片每載入一次都會佔用該額度（在沒有快取的情況下，如果你的域名在 Cloudflare 開啟了快取，當快取未命中時才會佔用該額度），超過黑白名單等功能可能會失效
 
-每天最多 1,000 次免费删除操作，每有一条图片记录都会占用该额度，超过将无法删除图片记录
+每天最多 1,000 次免費刪除操作，每有一條圖片記錄都會佔用該額度，超過將無法刪除圖片記錄
 
-每天最多 1,000 次免费列出操作，每打开或刷新一次后台/admin 都会占用该额度，超过将进行后台图片管理
+每天最多 1,000 次免費列出操作，每開啟或重新整理一次後臺/admin 都會佔用該額度，超過將進行後臺圖片管理
 
-绝大多数情况下，该免费额度都基本够用，并且可以稍微超出一点，不是已超出就立马停用，且每项额度单独计算，某项操作超出免费额度后只会停用该项操作，不影响其他的功能，即即便我的免费写入额度用完了，我的读写功能不受影响，图片能够正常加载，只是不能在图片管理后台看到新的图片了。
+絕大多數情況下，該免費額度都基本夠用，並且可以稍微超出一點，不是已超出就立馬停用，且每項額度單獨計算，某項操作超出免費額度後只會停用該項操作，不影響其他的功能，即即便我的免費寫入額度用完了，我的讀寫功能不受影響，圖片能夠正常載入，只是不能在圖片管理後臺看到新的圖片了。
 
-如果你的免费额度不够用，可以自行向 Cloudflare 购买 Cloudflare Workers 的付费版本，每月$5 起步，按量收费，没有上述额度限制
+如果你的免費額度不夠用，可以自行向 Cloudflare 購買 Cloudflare Workers 的付費版本，每月$5 起步，按量收費，沒有上述額度限制
 
-另外针对环境变量所做的更改将在下次部署时生效，如更改了`环境变量`，针对某项功能进行了开启或关闭，请记得重新部署。
+另外針對環境變數所做的更改將在下次部署時生效，如更改了`環境變數`，針對某項功能進行了開啟或關閉，請記得重新部署。
 
 ![](https://im.gurl.eu.org/file/b514467a4b3be0567a76f.png)
 

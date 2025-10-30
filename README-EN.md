@@ -78,4 +78,4 @@ When image review is enabled, the first time image load will be slow because it 
 
 ### Thanks
 
-Ideas and code provided by Hostloc @feixiang and @乌拉擦
+Ideas and code provided by Hostloc @feixiang and @烏拉擦
