@@ -33,46 +33,65 @@ export async function onRequest(context) {
     const pageTitle = fileName;
     const pageDescription = fileName;
 
+    // 定義常見的影片副檔名
+    const videoExtensions = ['.mp4', '.webm', '.mov', '.m4v', '.ogg'];
+
+    // 判斷是否為影片
+    const isVideo = videoExtensions.some(ext => fileName.toLowerCase().endsWith(ext));
+
+    // 根據檔案類型產生對應的媒體標籤
+    let mediaTag;
+    if (isVideo) {
+        mediaTag = `<video src="${imageUrl}" controls autoplay muted loop style="max-width: 80%; max-height: 80vh; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></video>`;
+    } else {
+        mediaTag = `<img src="${imageUrl}" alt="${pageTitle}" />`;
+    }
+
     // 產生完整的 HTML 字串
     const html = `
       <!DOCTYPE html>
       <html lang="en">
       <head>
+        <title>${pageTitle}</title>
+        
+        <!-- Meta 標籤 -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- 給社群平台爬蟲看的 Open Graph Meta 標籤 -->
         <meta property="og:title" content="${pageTitle}" />
         <meta property="og:description" content="${pageDescription}" />
-        <meta property="og:image" content="${imageUrl}" />
+        ${isVideo ? `<meta property="og:video" content="${imageUrl}" />` : `<meta property="og:image" content="${imageUrl}" />`}
         <meta property="og:type" content="website" />
         
-        <title>${pageTitle}</title>
         <style>
           body { 
             margin: 0; 
-            display: flex; 
-            flex-direction: column; 
+            display: flex;
+            flex-direction: column; /* 修正：讓元素垂直排列 */
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background-color: #f0f2f5; 
+            background-color: #f0f2f5;
+            font-family: sans-serif;
           }
-          img { 
+          /* 修正：讓樣式同時套用到圖片和影片 */
+          img, video { 
             max-width: 80%; 
             max-height: 80vh; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+          }
+          h2 {
+            margin-bottom: 1rem;
           }
         </style>
       </head>
       <body>
         <h2>${pageTitle}</h2>
-        <img src="${imageUrl}" alt="${pageTitle}" />
+        ${mediaTag}
       </body>
       </html>
     `;
 
-    // 回傳一個包含 HTML 內容的 Response
+    // 回傳 Response
     return new Response(html, {
         headers: {
             'Content-Type': 'text/html;charset=UTF-8',
