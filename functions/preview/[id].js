@@ -47,6 +47,15 @@ export async function onRequest(context) {
         mediaTag = `<img src="${imageUrl}" alt="${pageTitle}" />`;
     }
 
+    // 根據檔案類型產生 Schema.org JSON-LD 結構化資料
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": isVideo ? "VideoObject" : "ImageObject",
+        "name": pageTitle,
+        "description": pageDescription,
+        "contentUrl": imageUrl,
+    };
+
     // 產生完整的 HTML 字串
     const html = `
       <!DOCTYPE html>
@@ -57,10 +66,17 @@ export async function onRequest(context) {
         <!-- Meta 標籤 -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- 1. 給社群平台看的 Open Graph 標籤 -->
         <meta property="og:title" content="${pageTitle}" />
         <meta property="og:description" content="${pageDescription}" />
         ${isVideo ? `<meta property="og:video" content="${imageUrl}" />` : `<meta property="og:image" content="${imageUrl}" />`}
         <meta property="og:type" content="website" />
+
+        <!-- 2. 給 Google 爬蟲看的 Schema.org 結構化資料 -->
+        <script type="application/ld+json">
+          ${JSON.stringify(schemaData, null, 2)}
+        </script>
         
         <style>
           body { 
